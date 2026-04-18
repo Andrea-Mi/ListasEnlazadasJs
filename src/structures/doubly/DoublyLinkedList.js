@@ -75,25 +75,68 @@ class DoublyLinkedList {
   }
 
   countOccurrences(value) {
-    throw new Error(
-      "TODO RETO: Implementar countOccurrences(value) en DoublyLinkedList."
-    );
+    let count = 0;
+    let current = this.head;
+
+    while (current !== null) {
+      if(current.value === value) {
+        count++;
+      }
+      current = current.next;
+    }
+    return count;
   }
 
   clean() {
-    throw new Error("TODO RETO: Implementar clean() en DoublyLinkedList.");
+    this.head = null;
+    this.tail = null;
+    this._size = 0;
   }
 
   reverseInPlace() {
-    throw new Error(
-      "TODO RETO: Implementar reverseInPlace() en DoublyLinkedList."
-    );
+    let current = this.head;
+    let temp = null;
+
+    while (current !== null) {
+      temp = current.previous;
+      current.previous = current.next;
+      current.next = temp;
+      current = current.previous;
+    }
+
+    if (temp !== null) {
+      temp = this.head;
+      this.head = this.tail;
+      this.tail = temp;
+    }
   }
 
   removeDuplicates() {
-    throw new Error(
-      "TODO RETO: Implementar removeDuplicates() en DoublyLinkedList."
-    );
+    let current = this.head;
+
+    while (current !== null && current.next !== null) {
+      let runner = current;
+
+      while(runner.next !== null) {
+        if(runner.next.value === current.value) {
+          let nodeToRemove = runner.next;
+          runner.next = nodeToRemove.next;
+
+          if (nodeToRemove.next !== null) {
+            nodeToRemove.next.previous = runner;
+          }
+
+          if (nodeToRemove === this.tail) {
+            this.tail = runner;
+          }
+        } else {
+          runner = runner.next;
+        }
+      }
+
+      current = current.next;
+      
+    }
   }
 
   size() {

@@ -29,7 +29,7 @@ class SinglyLinkedList {
     this._size++;
   }
 
-  removeFirst() {
+  removeFirst() {this.countOccurrences
     if (this.head === null) {
       return null;
     }
@@ -54,25 +54,59 @@ class SinglyLinkedList {
   }
 
   countOccurrences(value) {
-    throw new Error(
-      "TODO RETO: Implementar countOccurrences(value) en SinglyLinkedList."
-    );
+     let count = 0;
+    let current = this.head;
+
+    while (current !== null) {
+      if(current.value === value) {
+        count++;
+      }
+      current = current.next;
+    }
+
+    return count;
   }
 
   clean() {
-    throw new Error("TODO RETO: Implementar clean() en SinglyLinkedList.");
+
+      this.head = null;
+      this.tail = null;
+      this._size = 0;
+
   }
 
   reverseInPlace() {
-    throw new Error(
-      "TODO RETO: Implementar reverseInPlace() en SinglyLinkedList."
-    );
+    let previos = null;
+    let current = this.head;
+    let next = null;
+    
+    while (current !== null) {
+      next = current.next;
+      current.next = previos;
+      previos = current;
+      current = next;
+    }
+
+    this.head = previos;
+
   }
 
   removeDuplicates() {
-    throw new Error(
-      "TODO RETO: Implementar removeDuplicates() en SinglyLinkedList."
-    );
+    let current = this.head;
+
+    while(current !== null && current.next !== null) {
+      let runner = current;
+
+      while(runner.next !== null) {
+        if(runner.next.value === current.value) {
+          runner.next = runner.next.next;
+        } else {
+          runner = runner.next;
+        }
+      }
+
+      current = current.next;
+    }
   }
 
   size() {
